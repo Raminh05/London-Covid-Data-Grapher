@@ -17,14 +17,24 @@ def get_write_data():
         f.write(r.content)
         f.close()
         
-def plot_cases():
-    with open("ontario_covid.csv", 'r') as e:
-        data = list(reader(e))
+def plot_cases_london():
+    with open("ontario_covid.csv", 'r') as f:
+        data = list(reader(f))
         cases = [i[16] for i in data[7::]]
         
     # converting to numpy 
     numpy_cases = np.array(cases)
     return numpy_cases
+
+def plot_cases_ontario():
+    with open("ontario_covid.csv", 'r') as f:
+        data = list(reader(f))
+        cases = [i[35] for i in data[7::]]
+        
+    # converting to numpy
+    numpy_cases = np.array(cases)
+    return numpy_cases
+
    
 
 def plot_dates():
@@ -36,7 +46,7 @@ def plot_dates():
     
     
 
-u_choice = input("What do you want to do?\n (a) Just update and write data to the csv\n (b) Update data AND show graph\n")
+u_choice = input("What do you want to do?\n (a) Just update and write data to the csv\n (b) Update data AND graph London cases\n (c) Update data AND graph Ontario cases\n")
 
 if u_choice == 'a':
     get_write_data()
@@ -46,16 +56,32 @@ elif u_choice == 'b':
     get_write_data()
 
     dates = plot_dates()
-    numpy_cases = plot_cases()
+    numpy_cases = plot_cases_london()
+    print(numpy_cases)
 
     pyplot.bar(dates, numpy_cases.astype(int))
 
-    pyplot.title('Holy macaroni')
+    pyplot.title('Holy macaroni - London')
     pyplot.xlabel('Date (in months)')
     pyplot.ylabel('Case numbers')
     pyplot.show()
 
     print("Finished!")
+
+elif u_choice == 'c':
+    get_write_data()
+
+    dates = plot_dates()
+    numpy_cases = plot_cases_ontario()
+    print(numpy_cases)
+
+    pyplot.bar(dates, numpy_cases.astype(int))
+
+    pyplot.title('Holy macaroni - Ontario')
+    pyplot.xlabel('Date (in months)')
+    pyplot.ylabel('Case numbers')
+    pyplot.show()
+
 
 else:
     print("Invalid choice!")
