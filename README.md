@@ -13,3 +13,8 @@ Prerequitsies:
 - dateutil (parser)
 - numpy
 - requests
+
+Instructions for future me:
+- Have all the .py files in the same dict
+- Look at the dang prerequitsies
+- Run get-choice to get choice
