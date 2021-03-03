@@ -2,7 +2,7 @@ from london import run_program_london
 from ontario import run_program_ontario
 
 def get_choice():    
-    u_choice = input("What do you want to do?\n (a) Just update and write data to the csv\n (b) Update data AND graph London cases\n (c) Update data AND graph Ontario cases\n")
+    u_choice = input("What do you want to do?\n (a) Update data AND graph London cases\n (b) Update data AND graph Ontario cases\n")
 
     if u_choice == 'b':
         run_program_london()
