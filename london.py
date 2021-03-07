@@ -9,6 +9,8 @@ from matplotlib import pyplot
 # Parameters for Chrome Driver running in headless mode
 chrome_option = options()
 chrome_option.add_argument("--headless")
+chrome_option.add_argument("--disable-extensions") # Update 03/07/21
+chrome_option.add_argument("--disable-gpu") # Update 03/07/21
 
 # Pyplot labels
 label_x = 'Date (months)'
@@ -24,10 +26,9 @@ def write_header(filename, headers):
         f.close()
 
 def get_data(chrome_option):
-    # Start Chrome Webdriver
+    # Start Chrome Webdriver w/ headless arguements
     PATH = "C:\Program Files (x86)\Webdriver\chromedriver.exe"
     driver = webdriver.Chrome(PATH, options=chrome_option)
-
     url = 'https://app.powerbi.com/view?r=eyJrIjoiMzE5MzJlOTItOWE2ZS00MDNlLTlkNDEtMTcyYTg5OGFhMTFiIiwidCI6ImRjNTYxMjk1LTdjYTktNDFhOS04M2JmLTUwODM0ZDZhOWQwZiJ9'
     driver.get(url)
     return driver
@@ -36,6 +37,11 @@ def parse_case(containers):
     new_cases = containers[24].text # Index 24 in the item-container list is where the new cases data is shown
     print("There are " + new_cases + " new cases of COVID-19 in the Middlesex region since the previous day.")
     return new_cases
+
+def parse_variants_case(containers): # Update 03/07/21
+    variants_section = containers[57].text
+    total_variants_cases = variants_section.split()
+    print("There are currently a total of " + total_variants_cases[10] + " cases of COVID-19 variants in the Middlesex Region")
 
 def parse_date(containers):
     date = containers[29].text # Index 29 in the item-container list is where the date is shown on the site
@@ -69,22 +75,23 @@ def plot_data(label_x, label_y, dates, cases):
 
 def run_program_london():
     driver = get_data(chrome_option)
-    
+
     # Driver finds ALL of the item-containers on the data report and puts it in a list
     containers = driver.find_elements_by_class_name("visual-container-component")
-
+    
     # Wait 3 seconds for the site to load...
     time.sleep(3)
 
     # Parsing new case figures and date from the item-container list
     new_cases = parse_case(containers)
+    parse_variants_case(containers)
     date = parse_date(containers).split()
+
+    # Quits the Driver because having chrome run the background is no good
+    driver.quit()
 
     # Calling the csv stuff
     write_data_to_csv(filename, date, new_cases)
-
-    # no likey having 99999 chrome tabs open after scrape is done
-    driver.quit()
 
     # parsing the dates and cases for pyplot to understand
     dates = parse_date_from_csv(filename)
@@ -92,10 +99,15 @@ def run_program_london():
 
     # Actually plotting everything
     plot_data(label_x, label_y, dates, cases)
-    
-
 
 ## Print figures to console (uncomment if need be)
 # print("There are " + new_cases + " new cases of COVID-19 in the Middlesex region since the previous day.")
 # print("Data updated on " + date[0])
+
+
+
+
+
+    
+
 
