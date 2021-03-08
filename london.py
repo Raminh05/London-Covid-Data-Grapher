@@ -45,6 +45,7 @@ def parse_variants_case(containers): # Update 03/07/21
 
 def parse_date(containers):
     date = containers[29].text # Index 29 in the item-container list is where the date is shown on the site
+    print("Data retrieved on " + date + ".") # Print date to Console (Update: 03/08)
     return date
 
 def write_data_to_csv(filename, date, new_cases):

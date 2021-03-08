@@ -29,6 +29,8 @@ def plot_cases_ontario(label_x, label_y):
         
     # converting to numpy
     numpy_cases = np.array(cases)
+    # Print whole case array to console
+    print(numpy_cases)
     
     date = dates()
 
