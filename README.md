@@ -6,13 +6,14 @@ UPDATE MARCH 3rd 2021:
 - A heck of a lot more bugs
 
 Prerequitsies:
-- Selenium
-- Chromedriver (yeah... you'll have to change the driver's PATH in the code (london.py) cause I suck)
+~~- Selenium~~ (removed after switiching london.py over to the new excel files from MLHU)
+~~- Chromedriver (yeah... you'll have to change the driver's PATH in the code (london.py) cause I suck)~~
 - Pyplot from matplotlib
 - csv (reader and writer)
 - dateutil (parser)
 - numpy
 - requests
+- openpyxl (*new*) (required to parse MLHU excel files)
 
 Instructions for future me:
 - Have all the .py files in the same dict
