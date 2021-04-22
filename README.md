@@ -6,8 +6,8 @@ UPDATE MARCH 3rd 2021:
 - A heck of a lot more bugs
 
 Prerequitsies:
-~~- Selenium~~ (removed after switiching london.py over to the new excel files from MLHU)
-~~- Chromedriver (yeah... you'll have to change the driver's PATH in the code (london.py) cause I suck)~~
+- ~~Selenium~~ (removed after switiching london.py over to the new excel files from MLHU)
+- ~~Chromedriver (yeah... you'll have to change the driver's PATH in the code (london.py) cause I suck)~~
 - Pyplot from matplotlib
 - csv (reader and writer)
 - dateutil (parser)
